@@ -1,0 +1,144 @@
+<!--squelette de la page-->
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Votez Héléna · BAE</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Mali:wght@500;600;700&display=swap">
+    <style>
+        :root {
+            --creme: #FFF8E7;
+            --beurre: #FCE9A6;
+            --ciel: #cde9f8;
+            --rose: #F7C6D3;
+            --brun: #4A3F35;
+            --bleu: #2F6E96;
+            --blanc: #FFFFFF;
+            --mulberry: #C5488C;
+            --incarnat: #FF6F7D;
+        }
+        body {
+            margin: 0;
+            background: var(--creme);
+            color: var(--brun);
+            font-family: 'Mali', system-ui, sans-serif;
+        }
+        h1 { font-family: 'Fredoka', system-ui, sans-serif; }
+    main {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 40px 16px 64px;
+        text-align: center;
+    }
+    .mascotte {
+        width: min(320px, 80vw);
+        height: auto;
+        animation: flotte 3s ease-in-out infinite;
+    }
+    @keyframes flotte {
+        0%, 100% { transform: translateY(0); }
+        60% { transform: translateY(-10px); }
+    }
+    h1 { margin: 0; font-size: clamp(44px, 12vw, 72px); line-height: 1; }
+    .sous-titre {
+        margin: 6px 0 0;
+        font-family: 'Fredoka', system-ui, sans-serif;
+        font-weight: 600;
+        font-size: clamp(20px, 5.5vw, 28px);
+        color: var(--incarnat);
+    }
+    .consigne { margin: 28px 0 12px; font-weight: 600; }
+    .cartes {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+    }
+        .carte {
+        height: 190px;
+        perspective: 800px;
+        background: none;
+        border: 0;
+        padding: 0;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+    }
+    .carte-inner {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s;
+        transform-style: preserve-3d;
+    }
+    .carte[aria-pressed="true"] .carte-inner { transform: rotateY(180deg); }
+    .face {
+        position: absolute;
+        inset: 0;
+        border: 3px solid var(--brun);
+        border-radius: 24px;
+        background: var(--blanc);
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+    .face.dos { transform: rotateY(180deg); font-size: 14px; line-height: 1.35; font-weight: 600; }
+    .lettre {
+        width: 64px; height: 64px;
+        border-radius: 50%;
+        border: 3px solid var(--brun);
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Fredoka', system-ui, sans-serif;
+        font-weight: 700; font-size: 38px;
+    }
+    .carte:nth-child(1) .lettre { background: var(--beurre); }
+    .carte:nth-child(2) .lettre { background: var(--ciel); }
+    .carte:nth-child(3) .lettre { background: var(--rose); }
+    .mot { font-family: 'Fredoka', system-ui, sans-serif; font-weight: 600; font-size: clamp(13px, 3.6vw, 17px); }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <img class="mascotte" src="mascotte.png" alt="La mascotte d'Héléna">
+            <h1>Votez Héléna</h1>
+            <p class="sous-titre">ta future déléguée, la plus motivée</p>
+        </header>
+        <p class="consigne">Touche une carte pour découvrir mon mantra</p>
+                <section class="cartes" aria-label="Le mantra BAE">
+            <button class="carte" type="button" aria-pressed="false">
+                <span class="carte-inner">
+                    <span class="face"><span class="lettre">B</span><span class="mot">Bienveillance</span></span>
+                    <span class="face dos">Une classe où chacun se sent à sa place, sans jugement.</span>
+                </span>
+            </button>
+            <button class="carte" type="button" aria-pressed="false">
+                <span class="carte-inner">
+                    <span class="face"><span class="lettre">A</span><span class="mot">Accompagnement</span></span>
+                    <span class="face dos">Vos questions et vos idées portées auprès des profs, avec un retour après chaque conseil.</span>
+                </span>
+            </button>
+            <button class="carte" type="button" aria-pressed="false">
+                <span class="carte-inner">
+                    <span class="face"><span class="lettre">E</span><span class="mot">Écoute</span></span>
+                    <span class="face dos">Un souci, une idée ? Tu m'en parles et on trouve une solution ensemble.</span>
+                </span>
+            </button>
+        </section>
+    </main>
+    <script>
+        document.querySelectorAll('.carte').forEach(function (carte) {
+            carte.addEventListener('click', function () {
+                var ouverte = carte.getAttribute('aria-pressed') === 'true';
+                carte.setAttribute('aria-pressed', ouverte ? 'false' : 'true');
+            });
+        });
+    </script>
+</body>
+</html>
+    
